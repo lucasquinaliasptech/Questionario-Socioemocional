@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Confiança</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    
+</style>
+<body>
+    <div class="div_intro">
+        <h1>Questionário de Confiança</h1>
+        <p>Neste questionário será possível avaliar o seu nível de confiança nas suas relações sociais e exibir um
+            feedback de melhoria. <b>Lembre-se este questionário é 100% anônimo e tem como finalidade somente auxiliar
+                você no processo de melhoria pessoal.</b></p>
+    </div>
+    <div class="div_questionario">
+        <p>Quando discordo de uma opinião do meu superior, isso afeta minha visão sobre ele (ela).</p>
+        <select name="ipt_1" id="ipt_1">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Quando sou o líder de uma equipe e a minha opinião/decisão é confrontada, isso me incomoda.</p>
+        <select name="ipt_2" id="ipt_2">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Quando uma regra/decisão é imposta a mim, sendo que eu não concordo com ela, me sinto incomodado.</p>
+        <select name="ipt_3" id="ipt_3">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Como gestor, me sentiria aflito em entregar uma tarefa importante para uma equipe recém contratada.</p>
+        <select name="ipt_4" id="ipt_4">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Não me sinto confortável em expor minhas opiniões e ideias, caso elas sejam contra a liderança ou a equipe.
+        </p>
+        <select name="ipt_5" id="ipt_5">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Me sinto incomodado quando recebo feedbacks.</p>
+        <select name="ipt_6" id="ipt_6">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Quando cometo um erro que impacta a equipe, tendo a escondê-lo para que ninguém descubra e desconverso caso
+            me perguntem sobre.</p>
+        <select name="ipt_7" id="ipt_7">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <p>Caso eu seja um líder e precise comunicar mudanças severas que podem gerar conflitos na equipe e causar
+            desconforto, me sinto aflito e evito a situação.</p>
+        <select name="ipt_8" id="ipt_8">
+            <option value="0"></option>
+            <option value="1">Concordo totalmente</option>
+            <option value="2">Concordo parcialmente</option>
+            <option value="3">Neutro</option>
+            <option value="4">Discordo parcialmente</option>
+            <option value="5">Discordo totalmente</option>
+        </select>
+        <br><br>
+        <button onclick="avaliar()">Avaliar Confiança</button>
+    </div>
+    <div id="div_resposta">
+        <p id="p_mensagem"></p>
+        <p id="p_empatia"></p>
+        <p id="p_competencia"></p>
+        <p id="p_vulnerabilidade"></p>
+        <p id="p_autenticidade"></p>
+    </div>
+    <div id="div_graficos">
+        <div class="grafico">
+            <canvas id="grafico"></canvas>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function avaliar() {
+        let v1 = Number(ipt_1.value);
+        let v2 = Number(ipt_2.value);
+        let v3 = Number(ipt_3.value);
+        let v4 = Number(ipt_4.value);
+        let v5 = Number(ipt_5.value);
+        let v6 = Number(ipt_6.value);
+        let v7 = Number(ipt_7.value);
+        let v8 = Number(ipt_8.value);
+
+        let empatia = v1 + v2;
+        let competencia = v3 + v4;
+        let vulnerabilidade = v5 + v6;
+        let autenticidade = v7 + v8;
+
+        continuar = true;
+
+        v1 == 0 || v2 == 0 || v3 == 0 || v4 == 0 || v5 == 0 || v6 == 0 || v7 == 0 || v8 == 0 ? continuar = false : p_mensagem.innerHTML = `Todos os campos devem ser preenchidos!`;
+
+        if (continuar) {
+            p_mensagem.innerHTML = "Avaliação concluída! Veja seu desempenho abaixo:";
+
+            if (empatia >= 8) {
+                p_empatia.innerHTML = `<b>Empatia (Excelente):</b> Você demonstra grande maturidade em separar opiniões de valores pessoais, o que fortalece a confiança mútua e a coesão da estratégia.`;
+            } else if (empatia >= 6) {
+                p_empatia.innerHTML = `<b>Empatia (Bom):</b> Você consegue manter o profissionalismo, mas lembre-se que discordâncias fazem parte do crescimento, não as tome como ataques pessoais.`;
+            } else {
+                p_empatia.innerHTML = `<b>Empatia (Atenção):</b> Há uma dificuldade em lidar com opiniões divergentes da liderança. Isso pode criar barreiras emocionais que prejudicam a execução da estratégia.`;
+            }
+
+            if (competencia >= 8) {
+                p_competencia.innerHTML = `<b>Competência (Excelente):</b> Você confia nos processos e na capacidade técnica do time, permitindo uma delegação eficaz e foco no que realmente importa.`;
+            } else if (competencia >= 6) {
+                p_competencia.innerHTML = `<b>Competência (Bom):</b> Você entende a importância de delegar, mas o receio com novos processos pode estar limitando a agilidade da sua equipe.`;
+            } else {
+                p_competencia.innerHTML = `<b>Competência (Atenção):</b> A falta de confiança em regras ou na capacidade de terceiros gera microgerenciamento e fadiga estratégica.`;
+            }
+
+            if (vulnerabilidade >= 8) {
+                p_vulnerabilidade.innerHTML = `<b>Vulnerabilidade (Excelente):</b> Você entende que a segurança psicológica é a base da inovação. Expor-se e aceitar feedbacks acelera os resultados.`;
+            } else if (vulnerabilidade >= 6) {
+                p_vulnerabilidade.innerHTML = `<b>Vulnerabilidade (Bom):</b> Você aceita feedbacks, mas ainda possui algumas travas para expor ideias contrárias. Lembre-se: o silêncio é o inimigo da melhoria.`;
+            } else {
+                p_vulnerabilidade.innerHTML = `<b>Vulnerabilidade (Atenção):</b> O medo da exposição impede que a empresa aproveite seu potencial. Feedbacks são ferramentas de ajuste, não julgamentos.`;
+            }
+
+            if (autenticidade >= 8) {
+                p_autenticidade.innerHTML = `<b>Autenticidade (Excelente):</b> Você é transparente com erros e comunicações difíceis. Isso gera uma base sólida de integridade na cultura da empresa.`;
+            } else if (autenticidade >= 6) {
+                p_autenticidade.innerHTML = `<b>Autenticidade (Bom):</b> Você busca ser verdadeiro, mas situações de alto conflito ainda o fazem hesitar. A transparência total reduz ruídos estratégicos.`;
+            } else {
+                p_autenticidade.innerHTML = `<b>Autenticidade (Atenção):</b> Esconder erros ou evitar conversas difíceis mina a confiança a longo prazo. A integridade é essencial para o sucesso da estratégia.`;
+            }
+
+            configurar_grafico(empatia, competencia, vulnerabilidade, autenticidade);
+        }
+    }
+
+    function configurar_grafico(empatia, competencia, vulnerabilidade, autenticidade) {
+        const config_grafico = document.getElementById('grafico');
+
+        const labels = ['Empatia', 'Competência', 'Vulnerabilidade', 'Autenticidade'];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Meu perfil',
+                    data: [empatia, competencia, vulnerabilidade, autenticidade],
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                }
+            ]
+        };
+
+        new Chart(config_grafico, {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            },
+        });
+
+    }
+</script>
